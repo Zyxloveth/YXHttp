@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <RongIMKit/RongIMKit.h>
+#import <RongIMLib/RongIMLib.h>
+#import <UIKit/UIKit.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +21,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[RCIM sharedRCIM] initWithAppKey:@"pwe86ga5eduo6"];
+    
+#ifdef __IPHONE_8_0
+    
+    UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    
+#else
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+#endif
+    
     
     return YES;
 }
